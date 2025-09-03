@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pagar - E-Commerce</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <h1 style="text-align: center">Pago Seguro</h1>
+
+    <div id="totalAmount">Total a pagar: $0.00</div>
+
+    <form id="paymentForm">
+      <label>
+        Nombre del titular
+        <input type="text" id="cardName" placeholder="Juan Pérez" required />
+        <div id="nameError" class="error"></div>
+      </label>
+
+      <label>
+        Número de tarjeta
+        <input
+          type="text"
+          id="cardNumber"
+          placeholder="1234 5678 9012 3456"
+          maxlength="19"
+          required
+        />
+        <div id="numberError" class="error"></div>
+      </label>
+
+      <label>
+        Fecha de expiración (MM/AA)
+        <input
+          type="text"
+          id="cardExp"
+          placeholder="12/25"
+          maxlength="5"
+          required
+        />
+        <div id="expError" class="error"></div>
+      </label>
+
+      <label>
+        CVV
+        <input
+          type="password"
+          id="cardCVV"
+          placeholder="123"
+          maxlength="3"
+          required
+        />
+        <div id="cvvError" class="error"></div>
+      </label>
+
+      <label>
+        Dirección de envío
+        <input
+          type="text"
+          id="address"
+          placeholder="Calle, Número, Ciudad"
+          required
+        />
+        <div id="addressError" class="error"></div>
+      </label>
+
+      <button type="submit" id="submitBtn">Pagar</button>
+      <button type="button" id="backBtn">Volver al Carrito</button>
+    </form>
+    <div id="qrContainer" style="margin-top: 20px"></div>
+    <button id="payWithQRBtn">Pagar con QR</button>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="script.js"></script>
+</html>

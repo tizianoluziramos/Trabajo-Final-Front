@@ -1,0 +1,261 @@
+/* ===============================
+   CART RESPONSIVE MEJORADO
+   =============================== */
+
+body {
+  padding: 2rem;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  color: #1d3557;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #e63946;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+#cartList {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 900px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap; /* permite que los elementos bajen en fila */
+}
+
+.cart-item .cart-item-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1 1 100%;
+}
+
+.cart-item img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.cart-item div {
+  flex: 1;
+}
+
+.cart-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.cart-item p {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  color: #555;
+}
+
+.cart-item input[type="number"] {
+  padding: 0.4rem;
+  font-size: 1rem;
+  width: 70px;
+  margin-left: 0.5rem;
+}
+
+.cart-item button.remove-btn {
+  background-color: #e63946;
+  color: #f1faee;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 0.5rem;
+}
+
+.cart-item button.remove-btn:hover {
+  background-color: #d62828;
+  transform: scale(1.05);
+}
+
+#totalPrice {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 900px;
+  text-align: right;
+}
+
+#cartButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+#backBtn,
+#checkoutBtn {
+  padding: 0.9rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#backBtn {
+  background-color: #a8dadc;
+  color: #1d3557;
+}
+
+#backBtn:hover {
+  background-color: #90e0ef;
+  transform: scale(1.05);
+}
+
+#checkoutBtn {
+  background-color: #e63946;
+  color: #f1faee;
+}
+
+#checkoutBtn:hover {
+  background-color: #d62828;
+  transform: scale(1.05);
+}
+
+#checkoutBtn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.7;
+}
+
+/* ===============================
+   MEDIA QUERIES
+   =============================== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .cart-item img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .cart-item h3 {
+    font-size: 1.6rem;
+  }
+
+  .cart-item p {
+    font-size: 1.3rem;
+  }
+
+  #totalPrice {
+    font-size: 1.9rem;
+  }
+
+  #backBtn,
+  #checkoutBtn {
+    font-size: 1.2rem;
+  }
+}
+
+/* Móviles medianos */
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.2rem;
+  }
+
+  .cart-item .cart-item-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 0.5rem;
+  }
+
+  .cart-item h3 {
+    font-size: 1.4rem;
+  }
+
+  .cart-item p {
+    font-size: 1.2rem;
+  }
+
+  .cart-item input[type="number"] {
+    width: 80px;
+  }
+
+  #totalPrice {
+    font-size: 1.7rem;
+    text-align: left;
+  }
+
+  #cartButtons {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  #backBtn,
+  #checkoutBtn {
+    width: 100%;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .cart-item img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .cart-item h3 {
+    font-size: 1.3rem;
+  }
+
+  .cart-item p {
+    font-size: 1.1rem;
+  }
+
+  .cart-item input[type="number"] {
+    width: 70px;
+  }
+
+  #totalPrice {
+    font-size: 1.5rem;
+  }
+
+  #backBtn,
+  #checkoutBtn {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}
