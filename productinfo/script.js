@@ -23,15 +23,24 @@ const ProductPage = {
     const imageEl = document.getElementById("image");
     imageEl.src = this.product.images[0];
     imageEl.alt = this.product.name;
+    const seller = document.getElementById("seller");
+    seller.textContent = `Vendido por: ${this.product.seller}`;
+    seller.addEventListener("click", () => {
+      window.open(this.product.sellerUrl, "_blank");
+    });
+    document.getElementById("origin").textContent = `Origen: ${
+      this.product.origin ? this.product.origin : "Desconocido"
+    }`;
     document.getElementById("description").textContent =
       this.product.fullDescription;
     document.getElementById(
       "price"
-    ).textContent = `$${this.product.price.toFixed(2)}`;
+    ).textContent = `${this.product.price.toFixed(2)}`;
     document.getElementById("stock").innerHTML =
       this.product.stock > 0
         ? `Stock disponible: ${this.product.stock}`
         : `<span style="color: red; font-weight: bold;">FUERA DE STOCK</span>`;
+    this.renderReviews();
   },
 
   initAddToCartButton() {
@@ -55,6 +64,27 @@ const ProductPage = {
 
   isInCart() {
     return this.cart.some((p) => p.id === this.product.id);
+  },
+
+  renderReviews() {
+    const reviewsContainer = document.getElementById("reviews");
+    reviewsContainer.innerHTML = ""; // Limpiar antes de renderizar
+
+    if (!this.product.reviews || this.product.reviews.length === 0) {
+      reviewsContainer.textContent = "No hay reseñas aún.";
+      return;
+    }
+
+    this.product.reviews.forEach((review) => {
+      const reviewEl = document.createElement("div");
+      reviewEl.classList.add("review");
+      reviewEl.innerHTML = `
+      <strong>${review.name}</strong> 
+      - <span>${"⭐".repeat(review.rating)}</span>
+      <p>${review.comment}</p>
+    `;
+      reviewsContainer.appendChild(reviewEl);
+    });
   },
 
   addToCart() {
@@ -85,4 +115,7 @@ const ProductPage = {
   },
 };
 
+if (localStorage.getItem("darkMode") === "1") {
+  document.body.classList.add("dark");
+}
 ProductPage.init();

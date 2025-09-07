@@ -7,6 +7,20 @@ const CheckoutPage = {
   cart: JSON.parse(localStorage.getItem("cart")) || [],
   total: 0,
 
+  updateInstallmentInfo() {
+    const select = document.getElementById("installments");
+    const infoDiv = document.getElementById("installmentInfo");
+    const months = parseInt(select.value);
+    const amountPerMonth = this.total / months;
+
+    localStorage.setItem("quotes", months);
+
+    infoDiv.textContent =
+      months > 1
+        ? `Pagás en ${months} cuotas de ${amountPerMonth.toFixed(2)}`
+        : "Pagás en un único pago";
+  },
+
   init() {
     this.calculateTotal();
     this.renderTotal();
@@ -16,17 +30,32 @@ const CheckoutPage = {
   },
 
   calculateTotal() {
-    this.total = this.cart.reduce(
-      (sum, product) => sum + product.price * product.quantity,
-      0
-    );
+    const userCountry = "Argentina";
+    const VAT_LOCAL = 0.21;
+    const VAT_IMPORT = 0.1;
+
+    this.subtotal = this.cart.reduce((sum, product) => {
+      return sum + product.price * product.quantity;
+    }, 0);
+
+    this.totalIva = this.cart.reduce((sum, product) => {
+      const vatRate = product.origin === userCountry ? VAT_LOCAL : VAT_IMPORT;
+      return sum + product.price * product.quantity * vatRate;
+    }, 0);
+
+    this.total = this.subtotal + this.totalIva;
   },
 
   renderTotal() {
-    this.totalAmountDiv.textContent = `Total a pagar: $${this.total.toFixed(
-      2
-    )}`;
-    this.checkoutBtn.disabled = this.cart.length === 0;
+    if (this.totalIva > 0) {
+      this.totalAmountDiv.textContent = `Total a pagar: ${this.total.toFixed(
+        2
+      )} (incluye ${this.totalIva.toFixed(2)} de IVA)`;
+    } else {
+      this.totalAmountDiv.textContent = `Total a pagar: ${this.total.toFixed(
+        2
+      )}`;
+    }
   },
 
   validateLuhn(number) {
@@ -96,6 +125,11 @@ const CheckoutPage = {
   },
 
   initInputs() {
+    document.getElementById("installments").addEventListener("change", () => {
+      this.updateInstallmentInfo();
+    });
+
+    this.updateInstallmentInfo();
     document.getElementById("cardNumber").addEventListener("input", (e) => {
       let val = e.target.value.replace(/\D/g, "").substring(0, 16);
       e.target.value = val.match(/.{1,4}/g)?.join(" ") || "";
@@ -120,10 +154,22 @@ const CheckoutPage = {
       this.checkoutBtn.disabled = true;
       this.checkoutBtn.textContent = "Procesando...";
 
+      const amountToPay = this.total;
+
       setTimeout(() => {
         const success = Math.random() > 0.1;
-        if (success) resolve("Pago exitoso");
-        else reject("Error en el pago, inténtalo de nuevo");
+
+        if (success) {
+          const cardNumber = document
+            .getElementById("cardNumber")
+            .value.replace(/\s+/g, "");
+          const cardType = this.getCardType(cardNumber);
+          localStorage.setItem("paymentMethod", cardType);
+
+          resolve(`Pago exitoso de ${amountToPay.toFixed(2)}`);
+        } else {
+          reject("Error en el pago, inténtalo de nuevo");
+        }
       }, 2000);
     });
   },
@@ -143,34 +189,14 @@ const CheckoutPage = {
     overlay.style.zIndex = 1000;
 
     const modal = document.createElement("div");
-    modal.style.background = "#fff";
-    modal.style.padding = "30px";
-    modal.style.borderRadius = "10px";
-    modal.style.textAlign = "center";
-    modal.style.minWidth = "300px";
-
+    modal.className = "custom-modal";
     modal.innerHTML = `
-    <p>¿Acepta hacer la compra?</p>
-    <div style="margin-top: 15px;">
-      <button id="confirmYes" style="
-        padding: 10px 20px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-right: 10px;
-      ">Sí</button>
-      <button id="confirmNo" style="
-        padding: 10px 20px;
-        background-color: #dc3545;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      ">No</button>
-    </div>
-  `;
+  <p>¿Acepta hacer la compra?</p>
+  <div class="modal-buttons">
+    <button id="confirmYes" class="btn-yes">Sí</button>
+    <button id="confirmNo" class="btn-no">No</button>
+  </div>
+`;
 
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
@@ -209,7 +235,30 @@ const CheckoutPage = {
       e.preventDefault();
       if (!this.validateForm()) return;
 
-      this.showConfirmModal();
+      const confirmBuy = localStorage.getItem("confirmBuy") === "1";
+
+      if (confirmBuy) {
+        this.showConfirmModal();
+      } else {
+        sessionStorage.setItem(
+          "customerName",
+          document.getElementById("cardName").value
+        );
+        sessionStorage.setItem(
+          "customerAddress",
+          document.getElementById("address").value
+        );
+
+        this.processPayment()
+          .then(() => {
+            window.location.href = "/pay/success";
+          })
+          .catch((err) => {
+            alert(`❌ ${err}`);
+            self.checkoutBtn.disabled = false;
+            self.checkoutBtn.textContent = "Pagar";
+          });
+      }
     });
   },
 
@@ -220,4 +269,7 @@ const CheckoutPage = {
   },
 };
 
+if (localStorage.getItem("darkMode") === "1") {
+  document.body.classList.add("dark");
+}
 CheckoutPage.init();

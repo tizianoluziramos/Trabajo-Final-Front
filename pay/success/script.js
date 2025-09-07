@@ -13,50 +13,68 @@ const Success = {
   },
 
   calculateTotal() {
-    return this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const userCountry = "Argentina";
+    const VAT_LOCAL = 0.21;
+    const VAT_IMPORT = 0.1;
+
+    let subtotal = 0;
+    let totalIva = 0;
+
+    this.cart.forEach((item) => {
+      subtotal += item.price * item.quantity;
+      const vatRate = item.origin === userCountry ? VAT_LOCAL : VAT_IMPORT;
+      totalIva += item.price * item.quantity * vatRate;
+    });
+
+    this.totalIva = totalIva;
+    return subtotal + totalIva;
   },
 
   renderCart() {
     let html = `
-      <p><strong>Cliente:</strong> ${this.customer.name}</p>
-      <p><strong>Dirección:</strong> ${this.customer.address}</p>
-      <table border="1" cellspacing="0" cellpadding="5" style="width:100%; border-collapse: collapse;">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio unitario</th>
-            <th>Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
+    <p><strong>Cliente:</strong> ${this.customer.name}</p>
+    <p><strong>Dirección:</strong> ${this.customer.address}</p>
+    <table border="1" cellspacing="0" cellpadding="5" style="width:100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio unitario</th>
+          <th>Subtotal</th>
+          <th>Cuotas</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
 
     this.cart.forEach((item) => {
       html += `
-        <tr>
-          <td>${item.name}</td>
-          <td>${item.quantity}</td>
-          <td>$${item.price.toFixed(2)}</td>
-          <td>$${(item.price * item.quantity).toFixed(2)}</td>
-        </tr>
-      `;
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.quantity}</td>
+        <td>${item.price.toFixed(2)}</td>
+        <td>${(item.price * item.quantity).toFixed(2)}</td>
+        <td>${localStorage.getItem("quotes")}</td>
+      </tr>
+    `;
     });
 
     html += `
-        </tbody>
-      </table>
-      <p><strong>Total pagado:</strong> $${this.calculateTotal().toFixed(2)}</p>
-      <button id="printBtn" style="
-        padding: 10px 20px;
-        margin-top: 15px;
-        background-color: #1d3557;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      ">Imprimir Factura</button>
-    `;
+      </tbody>
+    </table>
+    <p><strong>Total pagado:</strong> ${this.calculateTotal().toFixed(
+      2
+    )} (incluye ${this.totalIva.toFixed(2)} de IVA)</p>
+    <button id="printBtn" style="
+      padding: 10px 20px;
+      margin-top: 15px;
+      background-color: #1d3557;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    ">Imprimir Factura</button>
+  `;
 
     document.getElementById("orderInfo").innerHTML = html;
 
@@ -74,7 +92,6 @@ const Success = {
         qty: p.quantity,
       }));
 
-      // Obtener invoiceId desde localStorage (o generarlo si no existe)
       const invoiceId =
         localStorage.getItem("invoiceId") || this.generateInvoiceId();
 
@@ -84,7 +101,10 @@ const Success = {
         invoiceId: invoiceId,
         invoiceDate: new Date().toLocaleDateString(),
         amountDue: this.calculateTotal().toFixed(2),
+        totalVAT: this.totalIva.toFixed(2),
         items: JSON.stringify(mappedItems),
+        quotes: localStorage.getItem("quotes"),
+        paymentMethod: localStorage.getItem("paymentMethod"),
       });
 
       const iframe = document.createElement("iframe");
@@ -92,15 +112,19 @@ const Success = {
       iframe.style.width = "0";
       iframe.style.height = "0";
       iframe.style.border = "0";
+      console.log("/pay/bills/index.html?" + params.toString());
       iframe.src = "/pay/bills/index.html?" + params.toString();
-
       document.body.appendChild(iframe);
 
-      iframe.onload = () => {
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
-        setTimeout(() => document.body.removeChild(iframe), 1000);
-      };
+      await new Promise((resolve, reject) => {
+        iframe.onload = () => resolve();
+        iframe.onerror = () => reject(new Error("No se pudo cargar el iframe"));
+      });
+
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+
+      setTimeout(() => document.body.removeChild(iframe), 1000);
     } catch (error) {
       console.error("No se pudo imprimir la factura:", error);
     }
@@ -149,26 +173,35 @@ const Success = {
     });
   },
 
-  updateStock() {
-    this.cart.forEach((item) => {
-      const newStock = item.stock - item.quantity;
+  async updateStock() {
+    for (const item of this.cart) {
+      try {
+        const res = await fetch(
+          `https://68b63a83e5dc090291b124c8.mockapi.io/api/v1/products/${item.id}`
+        );
+        if (!res.ok) throw new Error("No se pudo obtener el producto");
+        const productData = await res.json();
 
-      fetch(
-        `https://68b63a83e5dc090291b124c8.mockapi.io/api/v1/products/${item.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ stock: newStock }),
-        }
-      )
-        .then((response) => response.json())
-        .then((data) =>
-          console.log(`Stock actualizado para ${data.name}: ${data.stock}`)
-        )
-        .catch((err) => console.error("Error actualizando stock:", err));
-    });
+        let newStock = productData.stock - item.quantity;
+        if (newStock < 0) newStock = 0;
+
+        const updateRes = await fetch(
+          `https://68b63a83e5dc090291b124c8.mockapi.io/api/v1/products/${item.id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ stock: newStock }),
+          }
+        );
+
+        const updatedData = await updateRes.json();
+        console.log(
+          `Stock actualizado para ${updatedData.name}: ${updatedData.stock}`
+        );
+      } catch (err) {
+        console.error("Error actualizando stock:", err);
+      }
+    }
   },
 
   backToHome() {
@@ -178,12 +211,12 @@ const Success = {
     window.location.href = "/";
   },
 
-  init() {
+  async init() {
     if (!sessionStorage.getItem("customerName") || this.cart.length === 0) {
       this.showEmptyModal();
     } else {
       this.renderCart();
-      this.updateStock();
+      await this.updateStock();
       document
         .getElementById("backBtn")
         .addEventListener("click", () => this.backToHome());
@@ -191,4 +224,7 @@ const Success = {
   },
 };
 
+if (localStorage.getItem("darkMode") === "1") {
+  document.body.classList.add("dark");
+}
 Success.init();

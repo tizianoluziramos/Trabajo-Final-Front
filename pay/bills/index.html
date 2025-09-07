@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Invoice</title>
+    <title>Factura</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
@@ -10,22 +10,19 @@
   </head>
   <body>
     <header>
-      <h1>Invoice</h1>
+      <h1>Factura</h1>
       <address>
         <p id="sender-name"></p>
         <p id="sender-address"></p>
         <p id="sender-phone"></p>
       </address>
       <span>
-        <img
-          alt=""
-          src="http://www.jonathantneal.com/examples/invoice/logo.png"
-        />
+        <img alt="" src="/assets/favicon.ico" />
       </span>
     </header>
 
     <article>
-      <h1>Recipient</h1>
+      <h1>Destinatario</h1>
       <address>
         <p id="recipient-name"></p>
         <p id="recipient-address"></p>
@@ -33,27 +30,36 @@
 
       <table class="meta">
         <tr>
-          <th>Invoice #</th>
+          <th>ID de Factura</th>
           <td><span id="invoice-id"></span></td>
         </tr>
         <tr>
-          <th>Date</th>
+          <th>Fecha de inicio</th>
           <td><span id="invoice-date"></span></td>
         </tr>
         <tr>
-          <th>Amount Due</th>
+          <th>Fecha de vencimiento</th>
+          <td><span id="invoice-expiration"></span></td>
+        </tr>
+
+        <tr>
+          <th>Total a Pagar</th>
           <td><span>$</span><span id="amount-due"></span></td>
+        </tr>
+        <tr>
+          <th style="text-align: center !important">Metodo de Pago</th>
+          <td><span id="payment-method"></span></td>
         </tr>
       </table>
 
       <table class="inventory">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Description</th>
-            <th>Rate</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th>Producto/Servicio</th>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
           </tr>
         </thead>
         <tbody>
@@ -69,28 +75,42 @@
 
       <table class="balance">
         <tr>
-          <th>Total</th>
-          <td><span data-prefix>$</span><span id="balance-total"></span></td>
+          <th>Subtotal</th>
+          <td><span data-prefix>$</span><span id="balance-subtotal"></span></td>
         </tr>
         <tr>
-          <th>Amount Paid</th>
+          <th>IVA</th>
+          <td><span data-prefix>$</span><span id="total-vat"></span></td>
+        </tr>
+        <tr>
+          <th>Total Pagado</th>
           <td><span data-prefix>$</span><span id="balance-paid">0.00</span></td>
         </tr>
         <tr>
-          <th>Balance Due</th>
+          <th>Balance Pendiente</th>
           <td><span data-prefix>$</span><span id="balance-due"></span></td>
         </tr>
       </table>
     </article>
 
     <aside>
-      <h1>Additional Notes</h1>
+      <h1>Notas Adicionales</h1>
       <div>
         <p>
-          A finance charge of 1.5% will be made on unpaid balances after 30
-          days.
+          Se aplicará un cargo financiero del 1,5% sobre los saldos no pagados
+          después de 30 días.
         </p>
       </div>
     </aside>
+    <footer>
+      <p>
+        Gracias por su compra - E-Commerce © 2025 <br />
+        Este documento no requiere firma ni sello oficial.
+      </p>
+      <div class="signature">
+        <img src="firma.png" alt="Firma" />
+        <p>Tiziano Luzi Ramos</p>
+      </div>
+    </footer>
   </body>
 </html>

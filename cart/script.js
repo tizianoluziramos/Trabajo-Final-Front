@@ -34,7 +34,7 @@ const CartPage = {
     <img src="${product.images[0]}" alt="${product.name}">
     <div>
       <h3>${product.name}</h3>
-      <p>Precio: $${product.price.toFixed(2)}</p>
+      <p>Precio: ${product.price.toFixed(2)}</p>
       <label>
         Cantidad:
         <input type="number" min="1" max="${product.stock}" value="${
@@ -49,7 +49,7 @@ const CartPage = {
       this.cartList.appendChild(li);
     });
 
-    this.totalPriceEl.textContent = `Total: $${total.toFixed(2)}`;
+    this.totalPriceEl.textContent = `Total: ${total.toFixed(2)}`;
     this.checkoutBtn.disabled = false;
 
     this.initQuantityInputs();
@@ -89,7 +89,7 @@ const CartPage = {
       (sum, product) => sum + product.price * product.quantity,
       0
     );
-    this.totalPriceEl.textContent = `Total: $${total.toFixed(2)}`;
+    this.totalPriceEl.textContent = `Total: ${total.toFixed(2)}`;
   },
 
   removeFromCart(index) {
@@ -111,5 +111,8 @@ const CartPage = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("darkMode") === "1") {
+    document.body.classList.add("dark");
+  }
   CartPage.init();
 });

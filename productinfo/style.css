@@ -1,8 +1,3 @@
-/* ===============================
-   E-COMMERCE MODERN UI STYLE
-   Proyecto Final - UNTREF  
-   =============================== */
-
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap");
 
 :root {
@@ -31,7 +26,6 @@ body {
   padding: 2rem;
 }
 
-/* Header / Título */
 h1 {
   text-align: center;
   font-size: 2rem;
@@ -40,7 +34,26 @@ h1 {
   color: var(--primary-color);
 }
 
-/* Contenedor del detalle */
+h3 {
+  text-align: center;
+  margin: 2rem auto 1rem auto;
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  padding-bottom: 5px;
+  position: relative;
+  display: block;
+}
+
+h3::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background-color: var(--primary-color);
+  margin: 5px auto 0 auto;
+  border-radius: 2px;
+}
+
 .product-detail {
   max-width: 900px;
   margin: 0 auto;
@@ -54,7 +67,6 @@ h1 {
   animation: fadeIn 0.6s ease;
 }
 
-/* Imagen del producto */
 .product-detail img {
   max-width: 320px;
   border-radius: var(--border-radius);
@@ -62,7 +74,6 @@ h1 {
   box-shadow: 0 4px 12px var(--card-shadow);
 }
 
-/* Descripción */
 .product-detail p {
   font-size: 1rem;
   margin-bottom: 1rem;
@@ -70,7 +81,6 @@ h1 {
   max-width: 750px;
 }
 
-/* Precio */
 #price {
   font-size: 1.3rem;
   font-weight: 700;
@@ -78,7 +88,6 @@ h1 {
   color: var(--primary-color);
 }
 
-/* Botón agregar */
 button {
   background-color: var(--primary-color);
   color: var(--secondary-color);
@@ -121,7 +130,201 @@ button:disabled:hover {
   transform: scale(1.05);
 }
 
-/* Animación de entrada */
+#origin {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1d3557;
+  background: linear-gradient(135deg, #a8dadc 0%, #f1faee 100%);
+  padding: 0.6rem 1rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  cursor: default;
+}
+
+#origin:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+#origin::before {
+  content: "🌎";
+  margin-right: 0.5rem;
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.4s ease;
+}
+
+#origin:hover::before {
+  transform: rotate(15deg) scale(1.2);
+}
+
+#seller {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  background: linear-gradient(
+    90deg,
+    var(--accent-color) 0%,
+    var(--secondary-color) 100%
+  );
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--card-shadow);
+  margin-bottom: 1.2rem;
+  text-align: center;
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
+}
+
+#seller:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px var(--card-shadow);
+  user-select: none;
+}
+
+#reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 1rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.review {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--card-shadow);
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
+}
+
+.review:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--card-shadow);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.review-header strong {
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.review-header span {
+  color: #ffcc00;
+  font-size: 0.9rem;
+}
+
+.review p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--text-color);
+  margin-top: 0.3rem;
+}
+
+body.dark {
+  --primary-color: #1e90ff;
+  --secondary-color: #1a1a1a;
+  --accent-color: #333a56;
+  --text-color: #f1faee;
+  --bg-color: #121212;
+  --card-bg: #1f1f1f;
+  --card-shadow: rgba(0, 0, 0, 0.7);
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+body.dark h1 {
+  color: var(--primary-color);
+}
+
+body.dark .product-detail {
+  background-color: var(--card-bg);
+  box-shadow: 0 6px 20px var(--card-shadow);
+}
+
+body.dark .product-detail img {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+body.dark .product-detail p {
+  color: var(--text-color);
+}
+
+body.dark #price {
+  color: var(--primary-color);
+}
+
+body.dark button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+body.dark button:hover {
+  background-color: #0f5ca5;
+}
+
+body.dark #backBtn {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+body.dark #backBtn:hover {
+  background-color: #444c70;
+}
+
+body.dark #origin {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+  color: var(--text-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+body.dark #origin::before {
+  filter: brightness(1.2);
+}
+
+body.dark #seller {
+  background: linear-gradient(90deg, #2a2a2a 0%, #1f1f1f 100%);
+  color: var(--text-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+body.dark .review {
+  background-color: #1f1f1f;
+  color: #f1faee;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+body.dark .review-header strong {
+  color: var(--primary-color);
+}
+
+body.dark .review-header span {
+  color: #ffcc00;
+}
+
+body.dark h3 {
+  color: var(--primary-color);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -133,12 +336,6 @@ button:disabled:hover {
   }
 }
 
-/* Responsividad */
-/* ===============================
-   MEDIA QUERIES DETALLE DE PRODUCTO
-   =============================== */
-
-/* Tablets */
 @media (max-width: 1024px) {
   body {
     padding: 2rem;
@@ -171,7 +368,6 @@ button:disabled:hover {
   }
 }
 
-/* Móviles medianos */
 @media (max-width: 768px) {
   body {
     padding: 1.5rem;
@@ -205,9 +401,28 @@ button:disabled:hover {
     padding: 0.9rem;
     font-size: 1.2rem;
   }
+
+  #reviews {
+    gap: 12px;
+  }
+
+  .review {
+    padding: 0.8rem 1rem;
+  }
+
+  .review-header strong {
+    font-size: 0.95rem;
+  }
+
+  .review-header span {
+    font-size: 0.85rem;
+  }
+
+  .review p {
+    font-size: 0.9rem;
+  }
 }
 
-/* Móviles pequeños */
 @media (max-width: 480px) {
   body {
     padding: 1rem;
@@ -239,5 +454,21 @@ button:disabled:hover {
     width: 100%;
     padding: 0.8rem;
     font-size: 1.1rem;
+  }
+
+  .review {
+    padding: 0.7rem 0.9rem;
+  }
+
+  .review-header strong {
+    font-size: 0.9rem;
+  }
+
+  .review-header span {
+    font-size: 0.8rem;
+  }
+
+  .review p {
+    font-size: 0.85rem;
   }
 }

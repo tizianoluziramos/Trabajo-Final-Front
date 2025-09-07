@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8" />
     <title>Pagar - E-Commerce</title>
     <link rel="stylesheet" href="style.css" />
@@ -65,11 +66,20 @@
         <div id="addressError" class="error"></div>
       </label>
 
+      <label>
+        Cantidad de cuotas
+        <select id="installments">
+          <option value="1">1 pago</option>
+          <option value="3">3 cuotas</option>
+          <option value="6">6 cuotas</option>
+          <option value="12">12 cuotas</option>
+          <option value="24">24 cuotas</option>
+        </select>
+      </label>
+      <div id="installmentInfo" class="error"></div>
       <button type="submit" id="submitBtn">Pagar</button>
       <button type="button" id="backBtn">Volver al Carrito</button>
     </form>
-    <div id="qrContainer" style="margin-top: 20px"></div>
-    <button id="payWithQRBtn">Pagar con QR</button>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script src="script.js"></script>

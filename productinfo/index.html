@@ -6,18 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/assets/chatbot/style.css" />
   </head>
   <body>
     <h1 id="name"></h1>
     <div class="product-detail">
       <img id="image" src="" alt="" />
+      <p id="seller"></p>
+      <p id="origin"></p>
       <p id="description"></p>
       <p id="price"></p>
       <p id="stock"></p>
       <button id="addToCartBtn">Agregar al carrito</button>
       <button id="backBtn">⬅ Volver</button>
     </div>
+    <h3>Reseñas</h3>
+    <div id="reviews"></div>
+    <div id="chatbot-container">
+      <button id="chatbot-toggle">💬</button>
+      <div id="chatbot-window" style="display: none; position: relative">
+        <div id="chatbot-messages"></div>
+        <input
+          type="text"
+          id="chatbot-input"
+          placeholder="Escribí tu consulta..."
+          autocomplete="off"
+        />
+        <div
+          id="chatbot-suggestions"
+          style="
+            position: absolute;
+            bottom: 50px;
+            right: 0;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 120px;
+            overflow-y: auto;
+            display: none;
+            z-index: 10000;
+            font-size: 0.9rem;
+          "
+        ></div>
+        <button id="chatbot-send">Enviar</button>
+      </div>
+    </div>
 
+    <script src="/assets/chatbot/script.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,6 +1,11 @@
-/* ===============================
-   FORMULARIO PREMIUM E-COMMERCE
-   =============================== */
+
+
+
+body.dark {
+  background: linear-gradient(180deg, #121212 0%, #1a1a1a 100%);
+  color: #f1faee;
+}
+
 
 form {
   max-width: 500px;
@@ -11,11 +16,21 @@ form {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 form:hover {
   transform: translateY(-3px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
+
+
+body.dark form {
+  background: linear-gradient(145deg, #1f1f1f, #121212);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+}
+body.dark form:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.85);
+}
+
 
 input,
 button {
@@ -41,6 +56,7 @@ input::placeholder {
   font-style: italic;
 }
 
+
 button {
   background: linear-gradient(45deg, #e63946, #d62828);
   color: #f1faee;
@@ -53,20 +69,130 @@ button {
   box-shadow: 0 6px 15px rgba(198, 57, 70, 0.3);
   transition: all 0.3s ease;
 }
-
 button:hover {
   background: linear-gradient(45deg, #d62828, #b71c1c);
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 10px 20px rgba(198, 57, 70, 0.4);
 }
 
+
+body.dark input,
+body.dark button {
+  background-color: #1f1f1f;
+  color: #f1faee;
+  border: 1px solid #444;
+}
+
+body.dark input:focus {
+  border: 2px solid #1e90ff;
+  box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+}
+
+body.dark input::placeholder {
+  color: #aaa;
+}
+
+body.dark button {
+  background: linear-gradient(45deg, #1e90ff, #187bcd);
+  color: #f1faee;
+  box-shadow: 0 6px 15px rgba(30, 144, 255, 0.5);
+}
+body.dark button:hover {
+  background: linear-gradient(45deg, #187bcd, #0f5ca5);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(30, 144, 255, 0.6);
+}
+
+
+button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.7;
+}
+button:disabled:hover {
+  background-color: #ccc;
+  transform: none;
+}
+
+
 .error {
   color: #e63946;
   font-size: 0.9rem;
-  margin-top: -0.3rem;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
+body.dark .error {
+  color: #ff6b6b;
+}
+
+
+label[for="installments"],
+#installments {
+  display: block;
+  width: 100%;
+  margin: 0.6rem 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1d3557;
+  font-family: "Montserrat", sans-serif;
+}
+
+body.dark label[for="installments"],
+body.dark #installments {
+  color: #f1faee;
+}
+
+#installments {
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background-color: #f1faee;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%231d3557" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+}
+
+#installments:hover,
+#installments:focus {
+  border: 2px solid #e63946;
+  box-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
+  outline: none;
+}
+
+body.dark #installments {
+  background-color: #1f1f1f;
+  border: 1px solid #444;
+  color: #f1faee;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23f1faee" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+}
+body.dark #installments:hover,
+body.dark #installments:focus {
+  border: 2px solid #1e90ff;
+  box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+}
+
+#installmentInfo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 0.3rem;
+  color: #1d3557;
+  min-height: 1.2em;
+}
+body.dark #installmentInfo {
+  color: #f1faee;
+}
+
 
 #totalAmount {
   max-width: 500px;
@@ -81,8 +207,123 @@ button:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
-
 #totalAmount:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+body.dark #totalAmount {
+  background: #1f1f1f;
+  color: #f1faee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+body.dark #totalAmount:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+}
+
+
+.custom-modal {
+  background: #fff;
+  color: #1a1a1a;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  min-width: 300px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.custom-modal .modal-buttons {
+  margin-top: 15px;
+}
+
+.custom-modal .btn-yes,
+.custom-modal .btn-no {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 15px;
+  transition: transform 0.2s ease;
+}
+
+.custom-modal .btn-yes {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.custom-modal .btn-no {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.custom-modal .btn-yes:hover,
+.custom-modal .btn-no:hover {
+  transform: scale(1.05);
+}
+
+body.dark .custom-modal {
+  background: linear-gradient(145deg, #1f1f1f, #121212);
+  color: #f1faee;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+
+@media (max-width: 768px) {
+  form {
+    max-width: 90%;
+    padding: 2rem;
+  }
+
+  #totalAmount {
+    max-width: 90%;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  form {
+    max-width: 95%;
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  input,
+  button {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+
+  #totalAmount {
+    max-width: 95%;
+    font-size: 1.2rem;
+    padding: 0.7rem;
+  }
+}
+
+@media (max-width: 360px) {
+  form {
+    padding: 1.2rem;
+  }
+
+  input,
+  button {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  button {
+    font-size: 0.95rem;
+  }
+
+  #totalAmount {
+    font-size: 1rem;
+    padding: 0.6rem;
+  }
 }

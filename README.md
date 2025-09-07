@@ -1,146 +1,178 @@
-# eCommerce - TP Final UNTREF
+# 🛒 README - eCommerce TP Final UNTREF
 
-Este proyecto es una tienda online completa desarrollada como trabajo final para UNTREF. Permite a los usuarios navegar productos, ver detalles, agregar al carrito, realizar pagos simulados y obtener una factura de compra. El código está documentado y estructurado para facilitar su comprensión y mantenimiento.
+Este proyecto es una tienda online completa desarrollada como **Trabajo Práctico Final para UNTREF**.  
+Permite a los usuarios navegar productos, ver detalles, agregar al carrito, realizar pagos simulados y obtener una factura de compra.  
+El código está documentado y estructurado para facilitar su comprensión y mantenimiento.
 
 ---
 
-## Estructura del Proyecto
+## 📂 Estructura del Proyecto
 
 ```
 index.html
 script.js
 style.css
 assets/
-  favicon.ico
+favicon.ico
+chatbot/
+├─ script.js
+├─ style.css
+css/
+├─ style.css
+js/
+├─ script.js
+├─ settings.js
 cart/
-  index.html
-  script.js
-  style.css
+├─ index.html
+├─ script.js
+├─ style.css
 pay/
-  index.html
-  script.js
-  style.css
-  bills/
-    index.html
-    script.js
-    style.css
-  success/
-    index.html
-    script.js
-    style.css
+├─ index.html
+├─ script.js
+├─ style.css
+├─ bills/
+│ ├─ firma.png
+│ ├─ index.html
+│ ├─ script.js
+│ ├─ style.css
+├─ success/
+├─ index.html
+├─ script.js
+├─ style.css
 productinfo/
-  index.html
-  script.js
-  style.css
+├─ index.html
+├─ script.js
+├─ style.css
+about/
+├─ index.html
+├─ script.js
+├─ style.css
+eula/
+├─ index.html
+├─ script.js
+├─ style.css
+images/
+├─ AnaTorres.jpg
+├─ CarlosGomez.webp
+├─ JuanPerez.jpg
+├─ MariaLopez.jpg
+
 ```
 
 ---
 
-## Descripción de Carpetas y Archivos
+## 📑 Descripción de Carpetas y Archivos
 
-- **index.html, script.js, style.css**  
-  Página principal que muestra los productos disponibles.
+### `index.html`, `script.js`, `style.css`
 
-  - `script.js`: Obtiene productos de una API, renderiza la lista y permite agregar/quitar productos del carrito usando `localStorage`.
+Página principal que lista productos obtenidos desde la API.
 
-- **/cart**  
-  Página del carrito de compras.
+- **script.js**: renderiza productos, maneja el carrito con `localStorage`.
 
-  - `cart/index.html`: Lista los productos agregados, permite modificar cantidades o eliminar productos.
-  - `cart/script.js`: Gestiona el renderizado del carrito, actualización de cantidades, eliminación y navegación.
-  - `cart/style.css`: Estilos específicos para la página del carrito.
+### `/cart`
 
-- **/pay**  
-  Página de pago y procesamiento de la compra.
+Página del carrito de compras.
 
-  - `pay/index.html`: Formulario de pago con validaciones de tarjeta, CVV y dirección.
-  - `pay/script.js`: Valida los datos, simula el pago y muestra un modal de confirmación antes de finalizar la compra.
-  - `pay/style.css`: Estilos para el formulario de pago.
-  - **/bills**: Generación y visualización de la factura.
-    - `bills/index.html`: Plantilla de factura.
-    - `bills/script.js`: Rellena la factura con los datos de la compra usando parámetros de la URL.
-    - `bills/style.css`: Estilos para la factura.
-  - **/success**: Página de éxito tras el pago.
-    - `success/index.html`: Muestra detalles de la compra y permite imprimir la factura.
-    - `success/script.js`: Renderiza el resumen, actualiza el stock en la API y limpia los datos de sesión.
-    - `success/style.css`: Estilos para la página de éxito.
+- Gestiona listado, cantidades, eliminación de productos y navegación.
 
-- **/productinfo**  
-  Página de detalle de producto.
-  - `productinfo/index.html`: Muestra información detallada de un producto.
-  - `productinfo/script.js`: Obtiene el producto por ID, permite agregar o quitar del carrito.
-  - `productinfo/style.css`: Estilos para la vista de detalle.
+### `/pay`
 
----
+Página de pago y procesamiento de la compra.
 
-## Flujo de la Aplicación
+- Validaciones de tarjeta, CVV y dirección.
+- Simulación de pago y modal de confirmación.
+- **/bills**: Generación de facturas dinámicas.
+- **/success**: Confirmación de compra, impresión de factura y actualización de stock.
 
-1. **Inicio (index.html):**
+### `/productinfo`
 
-   - Se listan productos obtenidos de una API externa.
-   - Cada producto puede ser visualizado en detalle o agregado/eliminado del carrito.
-   - El carrito se almacena en `localStorage` para persistencia.
+Muestra detalles de un producto individual y permite añadirlo o quitarlo del carrito.
 
-2. **Carrito (/cart):**
+### `/about`
 
-   - Se muestran los productos agregados, permitiendo modificar cantidades o eliminar productos.
-   - El botón "Pagar" lleva al formulario de pago.
+Información sobre el equipo y el proyecto.
 
-3. **Pago (/pay):**
+### `/eula`
 
-   - Formulario con validaciones (nombre, número de tarjeta, expiración, CVV, dirección).
-   - Se valida el tipo de tarjeta (Visa/Mastercard) y el número con el algoritmo de Luhn.
-   - Antes de procesar el pago, se muestra un modal de confirmación.
-   - Si el pago es exitoso, se redirige a la página de éxito.
-
-4. **Éxito (/pay/success):**
-
-   - Se muestra un resumen de la compra, datos del cliente y productos adquiridos.
-   - Permite imprimir la factura (abre `/pay/bills` en un iframe y lanza la impresión).
-   - Se actualiza el stock de los productos en la API y se limpia el carrito.
-
-5. **Factura (/pay/bills):**
-
-   - Recibe los datos de la compra por parámetros de la URL.
-   - Renderiza una factura lista para imprimir.
-
-6. **Detalle de Producto (/productinfo):**
-   - Muestra información ampliada del producto seleccionado.
-   - Permite agregar o quitar el producto del carrito.
+Términos y condiciones de uso.
 
 ---
 
-## Comentarios Explicativos y Decisiones de Diseño
+## 🔄 Flujo de la Aplicación
 
-- **Persistencia del Carrito:**  
-  Se utiliza `localStorage` para mantener el carrito entre sesiones y páginas.
+### **Inicio (`index.html`)**
 
-- **Validación de Pago:**  
-  El formulario de pago implementa validaciones estrictas para simular un entorno real, incluyendo el algoritmo de Luhn para tarjetas y comprobación de fechas.
+- Se listan productos desde una API externa.
+- Se puede ver detalle o añadir al carrito.
+- El carrito persiste con `localStorage`.
 
-- **Actualización de Stock:**  
-  Tras una compra exitosa, se actualiza el stock de cada producto en la API mediante una petición `PUT`.
+### **Carrito (`/cart`)**
 
-- **Factura Dinámica:**  
-  La factura se genera dinámicamente usando parámetros en la URL y se imprime automáticamente desde un iframe oculto.
+- Vista de productos agregados con opción de modificar cantidades.
+- Botón **“Pagar”** redirige al formulario de pago.
 
-- **Manejo de Sesión:**  
-  Se usan `sessionStorage` y `localStorage` para separar datos temporales (cliente) y persistentes (carrito).
+### **Pago (`/pay`)**
 
-- **Accesibilidad y UX:**  
-  Se incluyen mensajes claros, botones deshabilitados cuando corresponde y modales de confirmación para evitar errores de usuario.
+- Formulario con validaciones (nombre, tarjeta, expiración, CVV, dirección).
+- Validación de tarjeta con algoritmo de **Luhn**.
+- Modal de confirmación antes de procesar.
 
-- **Estilos Responsivos:**  
-  Todos los estilos están preparados para dispositivos móviles y escritorio.
+### **Éxito (`/pay/success`)**
+
+- Muestra resumen de compra y datos del cliente.
+- Permite imprimir factura y limpia el carrito.
+- Actualiza stock en la API con **PUT**.
+
+### **Factura (`/pay/bills`)**
+
+- Genera una factura dinámica usando parámetros en la URL.
+- Lista para impresión automática.
+
+### **Detalle de Producto (`/productinfo`)**
+
+- Muestra datos ampliados del producto.
+- Opción de añadir/quitar del carrito.
 
 ---
 
-## Licencia
+## 🛠️ Decisiones de Diseño y Conceptos Aplicados
+
+- **Persistencia del Carrito**  
+  Uso de `localStorage` para mantener productos entre sesiones.
+
+- **Fetch y AJAX**  
+  Productos obtenidos desde API externa.  
+  Actualización de stock con métodos HTTP (**GET, PUT**).
+
+- **Objetos y JSON**  
+  Productos, carrito y facturas representados como objetos.  
+  Comunicación con API basada en JSON.
+
+- **Promesas y Asincronía**  
+  Uso de `fetch` con promesas para obtener y actualizar datos.  
+  Manejo de respuestas con `then` y `catch`.
+
+- **Eventos**  
+  Botones de agregar/eliminar productos, submit del formulario de pago, impresión de factura, confirmaciones de modal.
+
+- **Validaciones de Pago**  
+  Incluye algoritmo de Luhn, fechas y comprobación de tipo de tarjeta.
+
+- **UX y Accesibilidad**  
+  Botones deshabilitados cuando corresponde, mensajes claros y modales de confirmación.
+
+- **Responsividad**  
+  Estilos diseñados para dispositivos móviles y escritorio.
+
+---
+
+## 📜 Licencia
 
 Este proyecto es solo para fines educativos.
 
 ---
 
-**Autor:**  
-Trabajo Práctico Final UNTREF  
+## 👤 Autor
+
+**Trabajo Práctico Final UNTREF**  
 Desarrollado por Tiziano Tomas Luzi Ramos
