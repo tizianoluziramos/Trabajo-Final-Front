@@ -168,7 +168,7 @@ Términos y condiciones de uso.
 
 ## 📜 Licencia
 
-Este proyecto es solo para fines educativos.
+Universidad Nacional De Tres De Febrero
 
 ---
 
