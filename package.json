@@ -1,0 +1,25 @@
+{
+  "name": "ecommerce-tp-final-untref",
+  "version": "1.0.0",
+  "description": "Este proyecto es una tienda online completa desarrollada como trabajo final para UNTREF. Permite a los usuarios navegar productos, ver detalles, agregar al carrito, realizar pagos simulados y obtener una factura de compra. El código está documentado y estructurado para facilitar su comprensión y mantenimiento.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx vite",
+    "build": "npx vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tizianoluziramos/Trabajo-Final-Front.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tizianoluziramos/Trabajo-Final-Front/issues"
+  },
+  "homepage": "https://github.com/tizianoluziramos/Trabajo-Final-Front#readme",
+  "dependencies": {
+    "vite": "^7.1.4"
+  }
+}
