@@ -4,6 +4,14 @@ Este proyecto es una tienda online completa desarrollada como trabajo final para
 
 ---
 
+# Como ejecutarlo
+
+## En la terminal escribe el siguiente comando:
+
+```
+npm run dev
+```
+
 ## Estructura del Proyecto
 
 ```
