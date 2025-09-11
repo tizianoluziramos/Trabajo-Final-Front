@@ -1,3 +1,5 @@
+import { Notification } from "/assets/notifymanager/script.js";
+
 const CartPage = {
   cartList: document.getElementById("cartList"),
   totalPriceEl: document.getElementById("totalPrice"),
@@ -95,7 +97,7 @@ const CartPage = {
   removeFromCart(index) {
     const removed = this.cart.splice(index, 1)[0];
     this.saveCart();
-    alert(`${removed.name} eliminado del carrito`);
+    Notification.show(`${removed.name} eliminado del carrito`);
     this.renderCart();
   },
 

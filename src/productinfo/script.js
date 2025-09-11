@@ -1,8 +1,51 @@
+import { Notification } from "/assets/notifymanager/script.js";
+
 const ProductPage = {
   BASEURL: "https://68b63a83e5dc090291b124c8.mockapi.io/api/v1/",
   productId: new URLSearchParams(window.location.search).get("id"),
   product: null,
   cart: JSON.parse(localStorage.getItem("cart")) || [],
+
+  reviewSender() {
+    const submitBtn = document.getElementById("submitReviewBtn");
+    submitBtn.addEventListener("click", async () => {
+      const name = document.getElementById("reviewName").value.trim();
+      const comment = document.getElementById("reviewComment").value.trim();
+      const rating = parseInt(document.getElementById("reviewRating").value);
+
+      if (!name || !comment) {
+        Notification.show("Por favor completa tu nombre y comentario");
+        return;
+      }
+
+      const newReview = { name, comment, rating };
+
+      if (!this.product.reviews) this.product.reviews = [];
+      this.product.reviews.push(newReview);
+
+      try {
+        const res = await fetch(`${this.BASEURL}products/${this.productId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...this.product }),
+        });
+
+        if (!res.ok) throw new Error("Error al guardar la reseña");
+
+        this.product = await res.json();
+        this.renderReviews();
+
+        document.getElementById("reviewName").value = "";
+        document.getElementById("reviewComment").value = "";
+        document.getElementById("reviewRating").value = "5";
+
+        Notification.show("¡Gracias por tu reseña!");
+      } catch (error) {
+        console.error(error);
+        Notification.show("No se pudo enviar la reseña. Intenta de nuevo.");
+      }
+    });
+  },
 
   async loadProduct() {
     try {
@@ -12,6 +55,7 @@ const ProductPage = {
       this.product = await res.json();
       this.renderProduct();
       this.initAddToCartButton();
+      this.reviewSender();
     } catch (error) {
       console.error(error);
       document.body.innerHTML = "<p>Error al cargar el producto.</p>";
@@ -35,7 +79,7 @@ const ProductPage = {
       this.product.fullDescription;
     document.getElementById(
       "price"
-    ).textContent = `${this.product.price.toFixed(2)}`;
+    ).textContent = `$${this.product.price.toFixed(2)}`;
     document.getElementById("stock").innerHTML =
       this.product.stock > 0
         ? `Stock disponible: ${this.product.stock}`
@@ -91,16 +135,16 @@ const ProductPage = {
     if (this.product.stock > 0) {
       this.cart.push({ ...this.product, quantity: 1 });
       localStorage.setItem("cart", JSON.stringify(this.cart));
-      alert(`${this.product.name} agregado al carrito`);
+      Notification.show(`${this.product.name} agregado al carrito`);
     } else {
-      alert("Producto sin stock disponible");
+      Notification.show("Producto sin stock disponible");
     }
   },
 
   removeFromCart() {
     this.cart = this.cart.filter((p) => p.id !== this.product.id);
     localStorage.setItem("cart", JSON.stringify(this.cart));
-    alert(`${this.product.name} eliminado del carrito`);
+    Notification.show(`${this.product.name} eliminado del carrito`);
   },
 
   initBackButton() {

@@ -74,13 +74,16 @@ const Success = {
       border-radius: 5px;
       cursor: pointer;
     ">Imprimir Factura</button>
+   
   `;
 
-    document.getElementById("orderInfo").innerHTML = html;
+    const orderInfoEl = document.getElementById("orderInfo");
+    if (!orderInfoEl) return;
+    orderInfoEl.innerHTML = html;
 
-    document
-      .getElementById("printBtn")
-      .addEventListener("click", () => this.printInvoice());
+    const printBtn = document.getElementById("printBtn");
+
+    if (printBtn) printBtn.addEventListener("click", () => this.printInvoice());
   },
 
   async printInvoice() {
@@ -227,4 +230,5 @@ const Success = {
 if (localStorage.getItem("darkMode") === "1") {
   document.body.classList.add("dark");
 }
+
 Success.init();

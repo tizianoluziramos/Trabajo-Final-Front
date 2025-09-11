@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/assets/chatbot/style.css" />
+    <link rel="stylesheet" href="/assets/notifymanager/style.css" />
   </head>
   <body>
     <h1 id="name"></h1>
@@ -20,8 +21,24 @@
       <button id="addToCartBtn">Agregar al carrito</button>
       <button id="backBtn">⬅ Volver</button>
     </div>
+    <div id="reviewForm">
+      <h3>Dejar una reseña</h3>
+      <input type="text" id="reviewName" placeholder="Tu nombre" />
+      <textarea id="reviewComment" placeholder="Tu comentario"></textarea>
+      <label for="reviewRating">Calificación:</label>
+      <select id="reviewRating">
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+      </select>
+      <button id="submitReviewBtn">Enviar reseña</button>
+    </div>
     <h3>Reseñas</h3>
+
     <div id="reviews"></div>
+
     <div id="chatbot-container">
       <button id="chatbot-toggle">💬</button>
       <div id="chatbot-window" style="display: none; position: relative">
@@ -54,6 +71,6 @@
     </div>
 
     <script src="/assets/chatbot/script.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>

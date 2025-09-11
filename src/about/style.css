@@ -27,6 +27,7 @@ body {
 
 header {
   display: flex;
+  flex-direction: row; /* horizontal */
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
@@ -36,6 +37,7 @@ header {
   font-weight: 700;
   letter-spacing: 1px;
   box-shadow: 0 4px 8px var(--card-shadow);
+  flex-wrap: nowrap; /* evita saltos de línea */
 }
 
 .header-left {
@@ -43,10 +45,13 @@ header {
 }
 
 .site-title {
+  flex: 1 1 auto;
+  min-width: 0; /* permite que se encoja si es necesario */
   text-align: center;
-  flex-grow: 1;
+  white-space: nowrap; /* no hacer wrap */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
 .cart-icon {
   font-size: 2rem;
   text-decoration: none;
@@ -158,11 +163,11 @@ body.dark a {
 
 @media (max-width: 768px) {
   body.dark header {
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
   }
   body.dark .team {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 }
@@ -170,14 +175,14 @@ body.dark a {
 @media (max-width: 768px) {
   header {
     font-size: 1.4rem;
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
   }
   .cart-icon {
     font-size: 1.8rem;
   }
   .team {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 }

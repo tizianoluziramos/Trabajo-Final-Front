@@ -1,4 +1,6 @@
 import "./settings.js";
+import { Notification } from "../notifymanager/script.js";
+
 const productsMethods = {
   BASEURL: "https://68b63a83e5dc090291b124c8.mockapi.io/api/v1/",
   productsContainer: document.getElementById("products"),
@@ -80,7 +82,7 @@ const productsMethods = {
     if (index >= 0) {
       cart.splice(index, 1);
       btn.textContent = "Agregar al carrito";
-      alert(`${product.name} eliminado del carrito`);
+      Notification.show(`${product.name} eliminado del carrito`);
     } else {
       cart.push({
         ...product,
@@ -88,7 +90,7 @@ const productsMethods = {
         description: product.shortDescription || "Sin descripción",
       });
       btn.textContent = "Eliminar del carrito";
-      alert(`${product.name} agregado al carrito`);
+      Notification.show(`${product.name} agregado al carrito`);
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));

@@ -96,16 +96,22 @@ keyboardToggle.addEventListener("change", () => {
 document.addEventListener("keydown", handleKeyboardShortcuts);
 
 document.addEventListener("DOMContentLoaded", () => {
-  const confirmToggle = document.getElementById("confirmBuyToggle");
-  if (!localStorage.getItem("confirmBuy")) {
-    localStorage.setItem("confirmBuy", 1);
-  }
-  const savedState = localStorage.getItem("confirmBuy") === "1";
-  confirmToggle.checked = savedState;
+  const settingsPanel = document.getElementById("settingsPanel");
+  const openBtn = document.getElementById("settingsToggle");
+  const closeBtn = document.getElementById("closeSettings");
 
-  confirmToggle.addEventListener("change", () => {
-    localStorage.setItem("confirmBuy", confirmToggle.checked ? "1" : "0");
-    console.log("Confirmar compra:", confirmToggle.checked ? "ON" : "OFF");
+  closeBtn.addEventListener("click", () => {
+    settingsPanel.classList.remove("open");
+    // Si me preguntas porque carajos puse el reloader(al que me corrija)
+    // Le puse esto porque:
+    // - Algunas veces el boton falla, la transicion jode el boton
+    // Al recargarlo hago que algunas opciones se recarguen correctamente
+    // evitando errores graves en el codigo.
+    location.reload();
+  });
+  openBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    settingsPanel.classList.add("open");
   });
 });
 
@@ -137,7 +143,6 @@ function updatePrices() {
 
 taxToggle.addEventListener("change", () => {
   localStorage.setItem("showTax", taxToggle.checked ? "1" : "0");
-  updatePrices();
 });
 
 document.addEventListener("DOMContentLoaded", () => {

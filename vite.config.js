@@ -1,8 +1,11 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  root: 'src',   // ahora Vite toma src/ como raíz del proyecto
+  root: "src",
   build: {
-    outDir: '../dist'  // importante: ajustá la salida porque sino queda dentro de src/dist
-  }
-})
+    outDir: "../dist",
+  },
+  server: {
+    allowedHosts: ["localhost", "untref.loca.lt"],
+  },
+});

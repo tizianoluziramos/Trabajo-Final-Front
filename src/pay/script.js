@@ -1,3 +1,5 @@
+import { Notification } from "../assets/notifymanager/script.js";
+
 const CheckoutPage = {
   form: document.getElementById("paymentForm"),
   backBtn: document.getElementById("backBtn"),
@@ -216,10 +218,10 @@ const CheckoutPage = {
       self
         .processPayment()
         .then(() => {
-          window.location.href = "/pay/success";
+          window.location.href = "/pay/success/";
         })
         .catch((err) => {
-          alert(`❌ ${err}`);
+          Notification.show(`❌ ${err}`);
           self.checkoutBtn.disabled = false;
           self.checkoutBtn.textContent = "Pagar";
         });
@@ -254,7 +256,7 @@ const CheckoutPage = {
             window.location.href = "/pay/success";
           })
           .catch((err) => {
-            alert(`❌ ${err}`);
+            Notification.show(`❌ ${err}`);
             self.checkoutBtn.disabled = false;
             self.checkoutBtn.textContent = "Pagar";
           });

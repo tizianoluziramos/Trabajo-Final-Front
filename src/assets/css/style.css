@@ -31,17 +31,16 @@ body {
 
 .close-btn {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 8px;
+  right: 8px;
   background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--text-color);
-  cursor: pointer;
-  font-weight: bold;
-}
-.close-btn:hover {
+  font-size: 1.2rem;
   color: var(--primary-color);
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #b22222;
   transform: scale(1.2);
 }
 
@@ -101,13 +100,13 @@ header {
   padding: 0.6rem 1rem;
   font-size: 1rem;
   border-radius: 50px;
-  border: 2px solid var(--primary-color); /* Puedes mantener tu color principal */
+  border: 2px solid var(--primary-color);
   outline: none;
   transition: all 0.3s ease;
   font-family: "Montserrat", sans-serif;
-  background-color: #ffffff; /* fondo claro */
-  color: #1a1a1a; /* texto oscuro */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* sombra más suave para modo claro */
+  background-color: #ffffff;
+  color: #1a1a1a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 #productSearch.dark {
@@ -134,11 +133,11 @@ header {
   border-color: #e63946;
   box-shadow: 0 0 10px rgba(230, 57, 70, 0.4);
   background-color: #ffffff;
-  color: #1a1a1a;
+  color: white;
 }
 
 #productSearch.dark:focus {
-  border-color: #e63946;
+  border-color: #140f0f;
   box-shadow: 0 0 10px rgba(230, 57, 70, 0.6);
   background-color: #2a2a2a;
 }
@@ -308,6 +307,10 @@ button:disabled:hover {
   overflow-y: auto;
 }
 
+#settingsPanel.open {
+  left: 0;
+}
+
 #settingsPanel h2 {
   font-weight: 600;
   color: var(--primary-color);
@@ -407,6 +410,27 @@ button:disabled:hover {
   text-decoration: underline;
 }
 
+.apk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.7rem;
+  margin-left: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.apk-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.apk-btn svg {
+  width: 36px;
+  height: 36px;
+}
+
 body.dark {
   --primary-color: #1d3557;
   --secondary-color: #f1faee;
@@ -504,6 +528,7 @@ body.dark .footer-link {
 }
 
 @media (max-width: 768px) {
+  /* Panel de ajustes */
   #settingsPanel {
     width: 250px;
     padding: 30px 15px;
@@ -529,17 +554,26 @@ body.dark .footer-link {
     transform: translateX(19px);
   }
 
+  /* Header */
   header {
-    flex-direction: column;
-    text-align: center;
+    flex-direction: row; /* fila, no columna */
+    flex-wrap: wrap; /* permite ajuste si falta espacio */
+    justify-content: space-between; /* separa elementos */
+    align-items: center;
+    text-align: left;
     padding: 0.8rem 1rem;
   }
 
   .site-title {
     font-size: 1.2rem;
-    text-align: center;
     flex-grow: 1;
+    text-align: center; /* o left según quieras */
     margin: 0 1rem;
+  }
+
+  .apk-btn {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
 
   .about-icon,
@@ -549,7 +583,7 @@ body.dark .footer-link {
 
   .cart-icon-container {
     font-size: 1.5rem;
-    margin-top: 0.5rem;
+    margin-top: 0;
   }
 
   .cart-count {
@@ -560,6 +594,7 @@ body.dark .footer-link {
     font-size: 0.7rem;
   }
 
+  /* Productos */
   #products {
     grid-template-columns: 1fr;
     gap: 0.8rem;
@@ -570,6 +605,7 @@ body.dark .footer-link {
     padding: 0.8rem;
   }
 
+  /* Botones */
   button {
     padding: 0.35rem 0.7rem;
     font-size: 0.85rem;
