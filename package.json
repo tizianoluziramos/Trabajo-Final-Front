@@ -4,7 +4,7 @@
   "description": "Este proyecto es una tienda online completa desarrollada como trabajo final para UNTREF. Permite a los usuarios navegar productos, ver detalles, agregar al carrito, realizar pagos simulados y obtener una factura de compra. El código está documentado y estructurado para facilitar su comprensión y mantenimiento.",
   "main": "index.js",
   "scripts": {
-    "dev": "npx vite",
+    "dev": "npx vite --host",
     "build": "npx vite build"
   },
   "repository": {

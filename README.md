@@ -143,12 +143,6 @@ productinfo/
 
 ---
 
-## Licencia
-
-Este proyecto es solo para fines educativos.
-
----
-
 **Autor:**  
 Trabajo Práctico Final UNTREF  
 Desarrollado por Tiziano Tomas Luzi Ramos
