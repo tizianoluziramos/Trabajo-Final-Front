@@ -113,8 +113,18 @@ productinfo/
    - Renderiza una factura lista para imprimir.
 
 6. **Detalle de Producto (/productinfo):**
+
    - Muestra información ampliada del producto seleccionado.
    - Permite agregar o quitar el producto del carrito.
+
+7. **Terminos y condiciones (/eula):**
+
+- Muestra los terminos y condiciones de la pagina
+- Detallado y específico para que el usuario comprenda a la perfeccion lo que se puede o no se puede realizar en este proyecto
+
+8. **Sobre nosotros (/about):**
+
+- Informacion sobre el equipo, incluida las imagenes de las personas
 
 ---
 
