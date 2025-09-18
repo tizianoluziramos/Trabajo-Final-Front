@@ -159,19 +159,13 @@ const CheckoutPage = {
       const amountToPay = this.total;
 
       setTimeout(() => {
-        const success = Math.random() > 0.1;
+        const cardNumber = document
+          .getElementById("cardNumber")
+          .value.replace(/\s+/g, "");
+        const cardType = this.getCardType(cardNumber);
+        localStorage.setItem("paymentMethod", cardType);
 
-        if (success) {
-          const cardNumber = document
-            .getElementById("cardNumber")
-            .value.replace(/\s+/g, "");
-          const cardType = this.getCardType(cardNumber);
-          localStorage.setItem("paymentMethod", cardType);
-
-          resolve(`Pago exitoso de ${amountToPay.toFixed(2)}`);
-        } else {
-          reject("Error en el pago, inténtalo de nuevo");
-        }
+        resolve(`Pago exitoso de ${amountToPay.toFixed(2)}`);
       }, 2000);
     });
   },
