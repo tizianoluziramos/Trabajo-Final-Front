@@ -18,6 +18,19 @@ npm run dev
 index.html
 script.js
 style.css
+about/
+  images/
+    AnaTorres.jpg
+    CarlosGomez.webp
+    JuanPerez.jpg
+    MariaLopez.jpg
+  index.html
+  script.js
+  style.css
+eula/
+  index.html
+  script.js
+  style.css
 assets/
   favicon.ico
 cart/
